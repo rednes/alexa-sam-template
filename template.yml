@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Application Model template for Alexa.
+Resources:
+  HelloAlexa:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/index.handler
+      Runtime: nodejs8.10
+      Timeout: 10
+      Events:
+        Alexa:
+          Type: AlexaSkill

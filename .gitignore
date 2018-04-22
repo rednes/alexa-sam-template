@@ -57,3 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# auto create file
+package-lock.json
+package.yml
+dist/

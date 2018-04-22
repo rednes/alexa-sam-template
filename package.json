@@ -1,0 +1,34 @@
+{
+  "name": "alexa-sam-template",
+  "version": "1.0.0",
+  "description": "AWS Serverless Application Model template for alexa.",
+  "homepage": "https://github.com/rednes/alexa-sam-template",
+  "bugs": "https://github.com/rednes/alexa-sam-template/issues",
+  "author": "rednes <528249+rednes@users.noreply.github.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rednes/alexa-sam-template.git"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist && $(npm bin)/tsc",
+    "deploy": "aws cloudformation deploy --template-file package.yml --stack-name alexa-sam-template --capabilities CAPABILITY_IAM --profile YOUR_PROFILE_NAME",
+    "fixlint": "find . -type d -and -name 'node_modules' -and -prune -or -type d -and -name 'dist' -and -prune -or -type f -and -name '*.d.ts' -and -prune -or -type f -and -name '*.ts' -and -print|xargs $(npm bin)/tslint --fix",
+    "invoke": "sam local invoke HelloAlexa -e event.json",
+    "lint": "$(npm bin)/tslint --project .",
+    "package": "aws cloudformation package --template-file template.yml --s3-bucket YOUR_BUCKET_NAME --output-template-file package.yml --profile YOUR_PROFILE_NAME",
+    "reinstall": "rm -rf ./node_modules && npm i",
+    "watch": "$(npm bin)/tsc -w"
+  },
+  "dependencies": {
+    "ask-sdk-core": "^2.0.1",
+    "ask-sdk-model": "^1.0.1",
+    "request": "^2.85.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^9.6.6",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.8.0",
+    "typescript": "^2.8.3"
+  }
+}
