@@ -1,10 +1,12 @@
 import * as Alexa from 'ask-sdk-core';
+import * as AlexaModel from 'ask-sdk-model';
+
 
 const launchRequestHandler: Alexa.RequestHandler = {
-  canHandle(handlerInput: Alexa.HandlerInput) {
+  canHandle(handlerInput: Alexa.HandlerInput): boolean {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
-  handle(handlerInput: Alexa.HandlerInput) {
+  handle(handlerInput: Alexa.HandlerInput): AlexaModel.Response {
     const speechText = 'Welcome to the Alexa Skills Kit, you can say hello!';
 
     return handlerInput.responseBuilder
@@ -16,11 +18,11 @@ const launchRequestHandler: Alexa.RequestHandler = {
 };
 
 const helloWorldIntentHandler: Alexa.RequestHandler = {
-  canHandle(handlerInput: Alexa.HandlerInput) {
+  canHandle(handlerInput: Alexa.HandlerInput): boolean {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
   },
-  handle(handlerInput: Alexa.HandlerInput) {
+  handle(handlerInput: Alexa.HandlerInput): AlexaModel.Response {
     const speechText = 'Hello World!';
 
     return handlerInput.responseBuilder
@@ -31,11 +33,11 @@ const helloWorldIntentHandler: Alexa.RequestHandler = {
 };
 
 const helpIntentHandler: Alexa.RequestHandler = {
-  canHandle(handlerInput: Alexa.HandlerInput) {
+  canHandle(handlerInput: Alexa.HandlerInput): boolean {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
-  handle(handlerInput: Alexa.HandlerInput) {
+  handle(handlerInput: Alexa.HandlerInput): AlexaModel.Response {
     const speechText = 'You can say hello to me!';
 
     return handlerInput.responseBuilder
@@ -47,12 +49,12 @@ const helpIntentHandler: Alexa.RequestHandler = {
 };
 
 const cancelAndStopIntentHandler: Alexa.RequestHandler = {
-  canHandle(handlerInput: Alexa.HandlerInput) {
+  canHandle(handlerInput: Alexa.HandlerInput): boolean {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
         || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
   },
-  handle(handlerInput: Alexa.HandlerInput) {
+  handle(handlerInput: Alexa.HandlerInput): AlexaModel.Response {
     const speechText = 'Goodbye!';
 
     return handlerInput.responseBuilder
@@ -63,10 +65,10 @@ const cancelAndStopIntentHandler: Alexa.RequestHandler = {
 };
 
 const sessionEndedRequestHandler: Alexa.RequestHandler = {
-  canHandle(handlerInput: Alexa.HandlerInput) {
+  canHandle(handlerInput: Alexa.HandlerInput): boolean {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
-  handle(handlerInput: any) {
+  handle(handlerInput: any): AlexaModel.Response {
     console.log(`Session ended with reason: ${String(handlerInput.requestEnvelope.request.reason)}`);
 
     return handlerInput.responseBuilder.getResponse();
@@ -74,10 +76,10 @@ const sessionEndedRequestHandler: Alexa.RequestHandler = {
 };
 
 const errorHandler: Alexa.ErrorHandler = {
-  canHandle() {
+  canHandle(): boolean {
     return true;
   },
-  handle(handlerInput: Alexa.HandlerInput, error: Error) {
+  handle(handlerInput: Alexa.HandlerInput, error: Error): AlexaModel.Response {
     console.log(`Error handled: ${error.message}`);
 
     return handlerInput.responseBuilder
@@ -87,7 +89,7 @@ const errorHandler: Alexa.ErrorHandler = {
   },
 };
 
-const skillBuilder = Alexa.SkillBuilders.custom();
+const skillBuilder: Alexa.CustomSkillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
   .addRequestHandlers(
