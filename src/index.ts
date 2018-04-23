@@ -69,7 +69,7 @@ const sessionEndedRequestHandler: Alexa.RequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
   handle(handlerInput: Alexa.HandlerInput): AlexaModel.Response {
-    console.log(`Session ended with reason: ${String(handlerInput.requestEnvelope.request.reason)}`);
+    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request}`);
 
     return handlerInput.responseBuilder.getResponse();
   },
